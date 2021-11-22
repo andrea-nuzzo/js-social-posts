@@ -55,3 +55,73 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+
+// Questo ciclo crea i Post
+for(let i = 0; i < posts.length; i++){
+    
+    // if (posts[i].author.image == null){
+    //     let initials = '';
+
+    //     for(let j = 0; j < posts[i].author.name.length; j++){
+    //         if (posts[i].author.name[j] == posts[i].author.name[j].toUpperCase()){
+    //             initials += posts[i].author.name[j].toUpperCase();
+    //         }
+    //     }
+    //     posts[i].author.image = initials.replace(/ /g, "");
+    // }
+    createPost(posts[i]);
+}
+
+
+
+
+
+
+
+// Questa funzione formatta la data
+function formatDate(propertyDate){
+    let date = new Date(propertyDate);
+    let myDate = ('0' + date.getDate()).slice(-2) + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + date.getFullYear() ;
+    return myDate;
+};
+
+
+
+
+
+
+function createPost (objectPost){
+    const containerPost = document.querySelector(".posts-list");
+    containerPost.innerHTML += 
+        `<div class="post">
+        <div class="post__header">
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${objectPost.author.image}" alt="${objectPost.author.name}">                    
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${objectPost.author.name}</div>
+                    <div class="post-meta__time">${formatDate(objectPost.created)}</div>
+                </div>                    
+            </div>
+        </div>
+        <div class="post__text">${objectPost.content}</div>
+        <div class="post__image">
+            <img src= "${objectPost.media}" alt="">
+        </div>
+        <div class="post__footer">
+            <div class="likes js-likes">
+                <div class="likes__cta">
+                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                        <span class="like-button__label">Mi Piace</span>
+                    </a>
+                </div>
+                <div class="likes__counter">
+                    Piace a <b id="like-counter-1" class="js-likes-counter">${objectPost.likes}</b> persone
+                </div>
+            </div> 
+        </div>            
+        </div>`
+};
