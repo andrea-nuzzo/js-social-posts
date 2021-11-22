@@ -56,22 +56,10 @@ const posts = [
     }
 ];
 
-
 // Questo ciclo crea i Post
 for(let i = 0; i < posts.length; i++){
-    
-    // if (posts[i].author.image == null){
-    //     let initials = '';
-
-    //     for(let j = 0; j < posts[i].author.name.length; j++){
-    //         if (posts[i].author.name[j] == posts[i].author.name[j].toUpperCase()){
-    //             initials += posts[i].author.name[j].toUpperCase();
-    //         }
-    //     }
-    //     posts[i].author.image = initials.replace(/ /g, "");
-    // }
     createPost(posts[i]);
-}
+};
 
 
 
@@ -86,7 +74,22 @@ function formatDate(propertyDate){
     return myDate;
 };
 
+// Questa funzione gestisce l'assenza dell'immagine del profilo
+function noProfilePicture(objectPost){
 
+    if (objectPost.author.image == null){
+
+        let initials = '';
+
+        for(let j = 0; j < objectPost.author.name.length; j++){
+
+            if (objectPost.author.name[j] == objectPost.author.name[j].toUpperCase()){
+                initials += objectPost.author.name[j].toUpperCase();
+            }
+        }
+       return initials.replace(/ /g, "");
+    } else {return objectPost.author.name}
+}
 
 
 
@@ -98,7 +101,7 @@ function createPost (objectPost){
         <div class="post__header">
             <div class="post-meta">                    
                 <div class="post-meta__icon">
-                    <img class="profile-pic" src="${objectPost.author.image}" alt="${objectPost.author.name}">                    
+                    <img class="profile-pic" src="${objectPost.author.image}" alt="${noProfilePicture(objectPost)}">                    
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${objectPost.author.name}</div>
