@@ -95,6 +95,26 @@ for(let i = 0; i < posts.length; i++){
     }
 }
 
+// Questo ciclo serve per fare aumentare il numero dei likes
+for(let i = 0; i < posts.length; i++){
+
+    // Mi posizione sul "Mi Piace"
+    const thumbUp = document.getElementsByClassName("like-button");
+
+    thumbUp[i].addEventListener("click", function(event){
+        
+        // Al click aumento il numero dei Likes
+        posts[i].likes ++;
+
+        // Mi posizione sul numero dei likes
+        const positionLikes = document.getElementsByClassName("js-likes-counter");
+
+        // E li inserisco nell'Html
+        positionLikes[i].innerHTML =  posts[i].likes;
+        event.preventDefault();
+    });
+}
+
 
 // Questa funzione formatta la data
 function formatDate(propertyDate){
