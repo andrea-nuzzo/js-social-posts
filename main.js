@@ -103,15 +103,21 @@ for(let i = 0; i < posts.length; i++){
 
     thumbUp[i].addEventListener("click", function(event){
         
-        // Al click aumento il numero dei Likes
-        posts[i].likes ++;
-
         // Mi posizione sul numero dei likes
         const positionLikes = document.getElementsByClassName("js-likes-counter");
 
-        // E li inserisco nell'Html
-        positionLikes[i].innerHTML =  posts[i].likes;
-        event.preventDefault();
+
+        // Aggiungo un like
+        positionLikes[i].innerHTML =  posts[i].likes+1;
+        
+
+        // Aggiorno il colore del mi piace
+        thumbUp[i].classList.add("like-button--liked");
+       
+        
+        
+        
+       event.preventDefault();
     });
 }
 
