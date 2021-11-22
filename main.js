@@ -59,12 +59,41 @@ const posts = [
 // Questo ciclo crea i Post
 for(let i = 0; i < posts.length; i++){
     createPost(posts[i]);
-};
+}
 
 
+// Questo ciclo serve per Inserire le iniziali se manca l'immagine del Profilo
+for(let i = 0; i < posts.length; i++){
 
+    // Se l'immagine è assente...
+    if (posts[i].author.image == null){
+        
+        // Mi posizione sulla classe di quell'immagine
+        const positionToInsert = document.getElementsByClassName("post-meta__icon");
 
+        // Cancello il tag contenente l'immagine
+        const positionNoicon = document.getElementsByClassName("profile-pic");
+        positionNoicon[i].remove();
 
+        // Setto una varibaile vuota che conterrà le iniziali del nome
+        let initials = '';
+
+        // Ciclo per trovare le iniziali
+        for(let j = 0; j < posts[i].author.name.length; j++){
+            if (posts[i].author.name[j] == posts[i].author.name[j].toUpperCase()){
+                initials += posts[i].author.name[j].toUpperCase();
+            }
+        }
+        // Creo un nuovo elemento div-span con le iniziali del nome
+        const insert = positionToInsert[i];
+        const newImage = document.createElement('div');
+        newImage.classList.add("profile-pic-default");
+        insert.appendChild(newImage);
+        const span = document.createElement('span');
+        newImage.appendChild(span);
+        span.innerHTML = initials.replace(/ /g, "");
+    }
+}
 
 
 // Questa funzione formatta la data
@@ -74,26 +103,7 @@ function formatDate(propertyDate){
     return myDate;
 };
 
-// Questa funzione gestisce l'assenza dell'immagine del profilo
-function noProfilePicture(objectPost){
-
-    if (objectPost.author.image == null){
-
-        let initials = '';
-
-        for(let j = 0; j < objectPost.author.name.length; j++){
-
-            if (objectPost.author.name[j] == objectPost.author.name[j].toUpperCase()){
-                initials += objectPost.author.name[j].toUpperCase();
-            }
-        }
-       return initials.replace(/ /g, "");
-    } else {return objectPost.author.name}
-}
-
-
-
-
+//Questa funzione crea il Layout dei Post
 function createPost (objectPost){
     const containerPost = document.querySelector(".posts-list");
     containerPost.innerHTML += 
@@ -101,11 +111,11 @@ function createPost (objectPost){
         <div class="post__header">
             <div class="post-meta">                    
                 <div class="post-meta__icon">
-                    <img class="profile-pic" src="${objectPost.author.image}" alt="${noProfilePicture(objectPost)}">                    
+                    <img class="profile-pic" src="${objectPost.author.image}" alt="${objectPost.author.name}">                    
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${objectPost.author.name}</div>
-                    <div class="post-meta__time">${formatDate(objectPost.created)}</div>
+                    <div class"post-meta__time">${formatDate(objectPost.created)}</div>
                 </div>                    
             </div>
         </div>
